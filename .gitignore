@@ -14,6 +14,12 @@ local.properties
 .settings/
 .loadpath
 
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
+
 # External tool builders
 .externalToolBuilders/
 
@@ -41,3 +47,6 @@ project/boot/
 *.jar
 *.war
 *.ear
+
+#OSX Ignore
+.DS_Store
