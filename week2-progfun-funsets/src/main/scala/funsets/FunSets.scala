@@ -74,9 +74,6 @@ object FunSets {
    * Returns a set transformed by applying `f` to each element of `s`.
    */
   def map(s: Set, f: Int => Int): Set = (x:Int) => exists(s, y => f(y) == x)
-  //The function returns true for a given integer x, 
-  //if there exists a bounded integer within s such that when you take some other integer(call it y) and apply f to it, you get x.
-  // y is exists in set t where y=f(x) and x is exists in set S 
   
   /**
    * Displays the contents of a set
