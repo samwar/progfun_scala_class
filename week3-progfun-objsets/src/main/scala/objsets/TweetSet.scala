@@ -66,7 +66,12 @@ abstract class TweetSet {
    * Question: Should we implement this method here, or should it remain abstract
    * and be implemented in the subclasses?
    */
-  def mostRetweeted: Tweet = ???
+  def mostRetweeted: Tweet
+
+  /**
+   * Helper method for mostRetweeted
+   */
+  def findMostRetweeted(currentMax: Tweet): Tweet
 
   /**
    * Returns a list containing all tweets of this set, sorted by retweet count
@@ -77,7 +82,7 @@ abstract class TweetSet {
    * Question: Should we implement this method here, or should it remain abstract
    * and be implemented in the subclasses?
    */
-  def descendingByRetweet: TweetList = ???
+  def descendingByRetweet: TweetList
 
   /**
    * The following methods are already implemented
@@ -124,16 +129,34 @@ class Empty extends TweetSet {
 
   def foreach(f: Tweet => Unit): Unit = ()
 
+  def mostRetweeted: Tweet = throw new NoSuchElementException
+
+  def findMostRetweeted(currentMax: Tweet) = currentMax
+
+  def descendingByRetweet: TweetList = Nil
+
   override def toString = "."
 }
 
 class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
 
   def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet =
-    if (p(elem)) new NonEmpty(elem, acc, left.filterAcc(p, right.filterAcc(p, acc)))
-    else left.filterAcc(p, right.filterAcc(p, acc))
+    if (p(elem)) new NonEmpty(elem, acc, right.filterAcc(p, left.filterAcc(p, acc)))
+    else right.filterAcc(p, left.filterAcc(p, acc))
 
-  def union(that: TweetSet): TweetSet = (that union (left union right)) incl elem
+  def union(that: TweetSet): TweetSet =
+    (left union (right union that)) incl elem
+  //new NonEmpty(elem, (left union right), that) 
+
+  def mostRetweeted: Tweet = findMostRetweeted(elem)
+
+  def findMostRetweeted(currentMax: Tweet): Tweet =
+    if (currentMax.retweets < elem.retweets) elem
+    else right.findMostRetweeted(left.findMostRetweeted(currentMax))
+
+  def descendingByRetweet: TweetList = {
+    new Cons(mostRetweeted, remove(mostRetweeted).descendingByRetweet)
+  }
 
   /**
    * The following methods are already implemented
@@ -160,6 +183,8 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
     left.foreach(f)
     right.foreach(f)
   }
+
+  def isEmpty = false;
 
   override def toString = "{" + left + elem + right + "}"
 }
@@ -189,17 +214,27 @@ object GoogleVsApple {
   val google = List("android", "Android", "galaxy", "Galaxy", "nexus", "Nexus")
   val apple = List("ios", "iOS", "iphone", "iPhone", "ipad", "iPad")
 
-  lazy val googleTweets: TweetSet = ???
-  lazy val appleTweets: TweetSet = ???
+  //  lazy val googleTweets: TweetSet = TweetReader.allTweets.filter(elem => (elem.text.contains(google(0)) ||
+  //      elem.text.contains(google(1)) || elem.text.contains(google(2)) || elem.text.contains(google(3)) ||
+  //      elem.text.contains(google(4)) || elem.text.contains(google(5))))
+  //  lazy val appleTweets: TweetSet = TweetReader.allTweets.filter(elem => (elem.text.contains(apple(0)) ||
+  //      elem.text.contains(apple(1)) || elem.text.contains(apple(2)) || elem.text.contains(apple(3)) ||
+  //      elem.text.contains(apple(4)) || elem.text.contains(apple(5))))
+
+  lazy val googleTweets: TweetSet = TweetReader.allTweets.filter(elem => (elem.text.contains(google)))
+  lazy val appleTweets: TweetSet = TweetReader.allTweets.filter(elem => (elem.text.contains(apple)))
 
   /**
    * A list of all tweets mentioning a keyword from either apple or google,
    * sorted by the number of retweets.
    */
-  lazy val trending: TweetList = ???
+  lazy val trending: TweetList = (googleTweets union appleTweets).descendingByRetweet
 }
 
 object Main extends App {
   // Print the trending tweets
   GoogleVsApple.trending foreach println
+
+  //println(GoogleVsApple.googleTweets.toString)
+  println("over")
 }
