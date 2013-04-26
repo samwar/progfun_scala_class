@@ -1,8 +1,8 @@
 package week4
 
 object week4_worksheet {
-  List(1)                                         //> res0: week4.List[Int] = week4.Cons@9ebaf65
-  List(1, 2)                                      //> res1: week4.List[Int] = week4.Cons@3a028fb7
+  List(1)                                         //> res0: week4.List[Int] = week4.Cons@23597cac
+  List(1, 2)                                      //> res1: week4.List[Int] = week4.Cons@1899de83
 
   /**trait Expr {
     def isNumber: Boolean
@@ -49,6 +49,8 @@ object exprs {**/
                                                   //> res4: String = 2 * x + y
 	show(Prod(Sum(Number(2), Var("x")), Var("y")))
                                                   //> res5: String = (2 + x) * y
+                                                  
+
 
 	
 }

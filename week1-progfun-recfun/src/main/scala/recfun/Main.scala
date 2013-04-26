@@ -23,6 +23,12 @@ object Main {
     }
     factorial(r) / (factorial(r - c) * factorial(c))
   }
+  
+//  def pascal(c: Int, r: Int): Int = {
+//    def fact(c: Int): Int = if (c == 0) 1 else c * fact(c-1)
+//
+//    fact(r) / (fact(r-c) * fact(c))
+//  }
 
   /**
    * Exercise 2

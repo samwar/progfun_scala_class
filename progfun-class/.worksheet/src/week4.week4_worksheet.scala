@@ -47,6 +47,8 @@ object exprs {**/
 	show(Var("x"));System.out.println("""res3: String = """ + $show(res$3));$skip(48); val res$4 = 
 	show(Sum(Prod(Number(2), Var("x")), Var("y")));System.out.println("""res4: String = """ + $show(res$4));$skip(48); val res$5 = 
 	show(Prod(Sum(Number(2), Var("x")), Var("y")));System.out.println("""res5: String = """ + $show(res$5))}
+                                                  
+
 
 	
 }

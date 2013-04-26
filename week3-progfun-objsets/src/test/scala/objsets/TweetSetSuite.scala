@@ -132,7 +132,7 @@ class TweetSetSuite extends FunSuite {
     }
   }
   
-   test("trending: google and applet tweets") {
+   test("trending: google and apple tweets") {
     new TestSets {
       val trends = GoogleVsApple.trending
       assert(!trends.isEmpty)
