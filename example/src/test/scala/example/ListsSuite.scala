@@ -1,11 +1,9 @@
 package example
 
-import org.junit.runner.RunWith
 import org.scalatest.FunSuite
-import org.scalatest.junit.JUnitRunner
 
-import Lists.max
-import Lists.sum
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 
 /**
  * This class implements a ScalaTest test suite for the methods in object
@@ -49,7 +47,7 @@ class ListsSuite extends FunSuite {
    * This allows tests to be written in a more readable manner:
    */
   test("one plus one is three?") {
-    assert(1 + 1 == 2) // This assertion fails! Go ahead and fix it.
+    assert(1 + 1 == 3) // This assertion fails! Go ahead and fix it.
   }
 
 
@@ -74,7 +72,7 @@ class ListsSuite extends FunSuite {
    * We recommend to always use the `===` equality operator when writing tests.
    */
   test("details why one plus one is not three") {
-    assert(1 + 1 === 2) // Fix me, please!
+    assert(1 + 1 === 3) // Fix me, please!
   }
 
 

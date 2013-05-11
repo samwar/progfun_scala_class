@@ -23,14 +23,15 @@ object Lists {
    * @param xs A list of natural numbers
    * @return The sum of all elements in `xs`
    */
-  def sum(xs: List[Int]): Int = {
-    def summer(count: Int, remainder: List[Int]): Int = {
-      if(remainder.isEmpty) count
-      else summer(count+remainder.head, remainder.tail)
-    }
-    summer(0, xs)
-  }
+//  def sum(xs: List[Int]): Int = {
+//    def summer(count: Int, remainder: List[Int]): Int = {
+//      if(remainder.isEmpty) count
+//      else summer(count+remainder.head, remainder.tail)
+//    }
+//    summer(0, xs)
+//  }
      
+  def sum(xs: List[Int]): Int = xs.sum
   
 
   /**
